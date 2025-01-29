@@ -12,7 +12,7 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
+    position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True, blank=True)
     email = models.EmailField()
     password = models.CharField(max_length=255)
     first_name = models.CharField(max_length=255)

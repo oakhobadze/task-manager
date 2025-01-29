@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Task List</h2>
+    {% if task_list %}
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Deadline</th>
+            <th>Completed</th>
+            <th>Priority</th>
+            <th>Task Type</th>
+            <th>Assignees</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in task_list %}
+          <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.deadline|date:"d.m.Y H:i" }}</td>
+            <td>
+              {% if task.is_completed %}
+                ✅ Yes
+              {% else %}
+                ❌ No
+              {% endif %}
+            </td>
+            <td><span class="badge bg-primary">{{ task.priority }}</span></td>
+            <td>{{ task.task_type.name }}</td>
+            <td>
+              {% for worker in task.assignees.all %}
+                {{ worker.username }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No tasks available.</p>
+    {% endif %}
+</div>
+{% endblock %}
