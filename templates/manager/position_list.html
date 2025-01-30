@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Positions</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Positions</h2>
+            <a href="{% url 'manager:positions-create' %}" class="btn btn-success">Add Position</a>
+        </div>
+
+        <ul class="list-group mt-3">
+            {% for position in positions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'manager:positions-update' position.id %}">{{ position.name }}</a>
+                    <a href="{% url 'manager:positions-delete' position.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">No positions available.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+{% endblock %}

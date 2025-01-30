@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Task Types</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Task Types</h2>
+            <a href="{% url 'manager:task-types-create' %}" class="btn btn-success">Add Task Type</a>
+        </div>
+
+        <ul class="list-group mt-3">
+            {% for task_type in task_types %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{% url 'manager:task-types-update' task_type.id %}">{{ task_type.name }}</a>
+                    <a href="{% url 'manager:task-types-delete' task_type.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-muted">No task types available.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+{% endblock %}

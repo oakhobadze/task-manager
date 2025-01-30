@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Task List</h2>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Task List</h2>
+        <a href="{% url 'manager:tasks-create' %}" class="btn btn-success">Add Task</a>
+    </div>
+
     {% if task_list %}
       <table class="table table-bordered table-striped">
         <thead>
@@ -14,12 +18,17 @@
             <th>Priority</th>
             <th>Task Type</th>
             <th>Assignees</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {% for task in task_list %}
           <tr>
-            <td>{{ task.name }}</td>
+            <td>
+              <a href="{% url 'manager:tasks-update' task.id %}">
+                {{ task.name }}
+              </a>
+            </td>
             <td>{{ task.description }}</td>
             <td>{{ task.deadline|date:"d.m.Y H:i" }}</td>
             <td>
@@ -36,6 +45,11 @@
                 {{ worker.username }}{% if not forloop.last %}, {% endif %}
               {% endfor %}
             </td>
+            <td>
+              <a href="{% url 'manager:tasks-delete' task.id %}" class="btn btn-danger btn-sm">
+                Delete
+              </a>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -43,5 +57,6 @@
     {% else %}
       <p>No tasks available.</p>
     {% endif %}
+    <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
 </div>
 {% endblock %}
