@@ -17,12 +17,14 @@
     <h4>Assignees:</h4>
     <ul>
         {% for worker in task.assignees.all %}
-            <li>{{ worker.first_name }} {{ worker.last_name }} ({{ worker.position }})</li>
+            <li><a href="{% url 'manager:workers-detail' worker.id %}">
+                {{ worker.username }}</a> {{ worker.first_name }} {{ worker.last_name }} ({{ worker.position }})</li>
         {% empty %}
             <li>No assignees</li>
         {% endfor %}
     </ul>
-
+    <a href="{% url 'manager:tasks-update' task.id %}" class="btn btn-success">Update this task</a>
+    <br>
     <a href="{% url 'manager:tasks-list' %}" class="btn btn-secondary">Back to Tasks</a>
 </div>
 {% endblock %}

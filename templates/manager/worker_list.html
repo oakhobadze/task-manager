@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}
     <title>Workers List</title>
@@ -6,6 +7,11 @@
 
 {% block content %}
 <div class="container mt-4">
+<form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="find" class="btn btn-secondary">
+</form>
+<br>
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="mb-3">Workers List</h2>
         <a href="{% url 'manager:workers-create' %}" class="btn btn-success">Add Worker</a>
@@ -26,7 +32,7 @@
             {% for worker in worker_list %}
             <tr>
                 <td>
-                    <a href="{% url 'manager:workers-update' worker.id %}">
+                    <a href="{% url 'manager:workers-detail' worker.id %}">
                         {{ worker.username }}
                     </a>
                 </td>

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from manager.forms import WorkerCreationForm, WorkerUpdateForm
+from manager.forms import WorkerCreationForm, WorkerUpdateForm, WorkerSearchForm, TaskSearchForm
 from manager.models import Worker, Task, Position, TaskType
 
 
@@ -29,6 +29,7 @@ class PositionListView(LoginRequiredMixin, ListView):
     model = Position
     queryset = Position.objects.all()
     context_object_name = "positions"
+    paginate_by = 5
 
 
 class PositionCreateView(LoginRequiredMixin, CreateView):
@@ -55,6 +56,7 @@ class TaskTypeListView(LoginRequiredMixin, ListView):
     model = TaskType
     queryset = TaskType.objects.all()
     context_object_name = "task_types"
+    paginate_by = 5
 
 
 class TaskTypeCreateView(LoginRequiredMixin, CreateView):
@@ -80,6 +82,18 @@ class TaskTypeDeleteView(LoginRequiredMixin, DeleteView):
 class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     queryset = Worker.objects.all()
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkerListView, self).get_context_data(**kwargs)
+        context["search_form"] = WorkerSearchForm()
+        return context
+
+    def get_queryset(self):
+        username = self.request.GET.get("username")
+        if username:
+            return Worker.objects.filter(username__icontains=username)
+        return Worker.objects.all()
 
 
 class WorkerDetailListView(LoginRequiredMixin, DetailView):
@@ -109,6 +123,18 @@ class WorkerDeleteView(LoginRequiredMixin, DeleteView):
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     queryset = Task.objects.all()
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        context["search_form"] = TaskSearchForm()
+        return context
+
+    def get_queryset(self):
+        name = self.request.GET.get("name")
+        if name:
+            return Task.objects.filter(name__icontains=name)
+        return Task.objects.all()
 
 
 class TaskDetailListView(LoginRequiredMixin, DetailView):

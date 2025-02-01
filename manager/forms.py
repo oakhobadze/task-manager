@@ -34,3 +34,11 @@ class WorkerUpdateForm(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ["username", "position", "email", "first_name", "last_name", "is_superuser"]
+
+
+class WorkerSearchForm(forms.Form):
+    username = forms.CharField(required=True, max_length=255, label="")
+
+
+class TaskSearchForm(forms.Form):
+    name = forms.CharField(required=True, max_length=255, label="")

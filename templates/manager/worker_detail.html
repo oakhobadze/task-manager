@@ -19,7 +19,8 @@
     <ul>
         {% for task in worker.assigned_tasks.all %}
             <li>
-                <strong>{{ task.name }}</strong><br>
+                <a href="{% url 'manager:tasks-detail' task.id %}">{{ task.name }}</a>
+                <br>
                 <em>{{ task.description }}</em><br>
                 <strong>Deadline:</strong> {{ task.deadline }}<br>
                 <strong>Priority:</strong> {{ task.priority }}<br>
@@ -29,7 +30,8 @@
             <li>No tasks assigned</li>
         {% endfor %}
     </ul>
-
+    <a href="{% url 'manager:workers-update' worker.id %}" class="btn btn-success">Update this worker</a>
+    <br>
     <a href="{% url 'manager:workers-list' %}" class="btn btn-secondary">Back to Workers</a>
 </div>
 {% endblock %}

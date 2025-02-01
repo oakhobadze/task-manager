@@ -1,7 +1,13 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
 <div class="container mt-4">
+<form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="find" class="btn btn-secondary">
+</form>
+<br>
     <div class="d-flex justify-content-between align-items-center">
         <h2>Task List</h2>
         <a href="{% url 'manager:tasks-create' %}" class="btn btn-success">Add Task</a>
@@ -25,7 +31,7 @@
           {% for task in task_list %}
           <tr>
             <td>
-              <a href="{% url 'manager:tasks-update' task.id %}">
+              <a href="{% url 'manager:tasks-detail' task.id %}">
                 {{ task.name }}
               </a>
             </td>
