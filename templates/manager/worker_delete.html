@@ -1,17 +1,49 @@
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
 
-{% block title %}
-    <title>Delete Worker</title>
-{% endblock %}
+{% block title %} Delete Worker {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2>Delete Worker</h2>
-        <p>Are you sure you want to delete <strong>{{ worker.first_name }} {{ worker.last_name }}</strong>?</p>
-        <form method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete</button>
-            <a href="{% url 'manager:workers-list' %}" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-{% endblock %}
+<main>
+    {% include 'includes/preloader.html' %}
+
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="display-2 mb-4">Delete Worker</h1>
+                    <p class="lead mb-4 text-muted">Are you sure you want to delete the worker <strong>{{ worker.first_name }} {{ worker.last_name }}</strong>?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg pt-0">
+        <div class="container mt-4">
+            <form method="post">
+                {% csrf_token %}
+                <div class="alert alert-warning">
+                    <p class="mb-0">This action is irreversible. Are you sure you want to proceed?</p>
+                    <div class="d-flex gap-3 mt-4 justify-content-center">
+                    <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                    <a href="{% url 'manager:workers-list' %}" class="btn btn-secondary btn-lg">Cancel</a>
+                </div>
+                </div>
+                <div class="d-flex gap-3 mt-4 justify-content-center">
+                    <button type="submit" class="btn btn-danger btn-lg">Delete</button>
+                    <a href="{% url 'manager:workers-list' %}" class="btn btn-secondary btn-lg">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

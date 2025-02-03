@@ -22,14 +22,13 @@ def index(request):
         "num_visits": num_visits + 1,
     }
 
-    return render(request, "manager/index.html", context=context)
+    return render(request, "home/index.html", context=context)
 
 
 class PositionListView(LoginRequiredMixin, ListView):
     model = Position
     queryset = Position.objects.all()
     context_object_name = "positions"
-    paginate_by = 5
 
 
 class PositionCreateView(LoginRequiredMixin, CreateView):
@@ -56,7 +55,6 @@ class TaskTypeListView(LoginRequiredMixin, ListView):
     model = TaskType
     queryset = TaskType.objects.all()
     context_object_name = "task_types"
-    paginate_by = 5
 
 
 class TaskTypeCreateView(LoginRequiredMixin, CreateView):
@@ -82,7 +80,6 @@ class TaskTypeDeleteView(LoginRequiredMixin, DeleteView):
 class WorkerListView(LoginRequiredMixin, ListView):
     model = Worker
     queryset = Worker.objects.all()
-    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkerListView, self).get_context_data(**kwargs)
@@ -123,7 +120,6 @@ class WorkerDeleteView(LoginRequiredMixin, DeleteView):
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     queryset = Task.objects.all()
-    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
@@ -132,9 +128,12 @@ class TaskListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         name = self.request.GET.get("name")
+        queryset = Task.objects.filter(is_completed=False)
+
         if name:
-            return Task.objects.filter(name__icontains=name)
-        return Task.objects.all()
+            queryset = queryset.filter(name__icontains=name)
+
+        return queryset
 
 
 class TaskDetailListView(LoginRequiredMixin, DetailView):

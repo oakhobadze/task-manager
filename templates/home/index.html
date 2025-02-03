@@ -1,15 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
-    <br>
-
-  <h1>Task Manager Home screen</h1>
-  <p>Welcome to Best Task Manager!</p>
-  <p>The Task service has the following record counts:</p>
-  <ul>
-    <li><strong>Tasks:</strong> {{ num_tasks }}</li>
-    <li><strong>Workers:</strong> {{ num_workers }}</li>
-  </ul><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -155,10 +144,3 @@
 
 </body>
 </html>
-
-
-  <p>You have visited this page
-      {{ num_visits }} time{{ num_visits|pluralize }}.
-  </p>
-
-{% endblock %}

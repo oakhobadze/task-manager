@@ -1,27 +1,53 @@
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
 
-{% block title %}
-    <title>Positions</title>
-{% endblock %}
+{% block title %} Positions {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>Positions</h2>
-            <a href="{% url 'manager:positions-create' %}" class="btn btn-success">Add Position</a>
+<main>
+    {% include 'includes/preloader.html' %}
+
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="display-2 mb-4">Positions</h1>
+                    <p class="lead mb-4 text-muted">Manage organizational positions efficiently.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <ul class="list-group mt-3">
-            {% for position in positions %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{% url 'manager:positions-update' position.id %}">{{ position.name }}</a>
-                    <a href="{% url 'manager:positions-delete' position.id %}" class="btn btn-danger btn-sm">Delete</a>
-                </li>
-            {% empty %}
-                <li class="list-group-item text-muted">No positions available.</li>
-            {% endfor %}
-        </ul>
+    <section class="section section-lg pt-0">
+        <div class="container mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h3">Positions</h2>
+                <a href="{% url 'manager:positions-create' %}" class="btn btn-success">Add Position</a>
+            </div>
 
-        <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
-    </div>
-{% endblock %}
+            <ul class="list-group">
+                {% for position in positions %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'manager:positions-update' position.id %}" class="text-primary font-weight-bold">{{ position.name }}</a>
+                        <a href="{% url 'manager:positions-delete' position.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-muted text-center">No positions available.</li>
+                {% endfor %}
+            </ul>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'manager:index' %}" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,58 +1,94 @@
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
 {% load crispy_forms_filters %}
 
-{% block title %}
-    <title>Workers List</title>
-{% endblock %}
+{% block title %} Workers List {% endblock %}
+
 
 {% block content %}
-<div class="container mt-4">
-<form method="get" action="" class="form-inline">
-    {{ search_form|crispy }}
-    <input type="submit" value="find" class="btn btn-secondary">
-</form>
-<br>
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-3">Workers List</h2>
-        <a href="{% url 'manager:workers-create' %}" class="btn btn-success">Add Worker</a>
-    </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Position</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for worker in worker_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'manager:workers-detail' worker.id %}">
-                        {{ worker.username }}
-                    </a>
-                </td>
-                <td>{{ worker.first_name }}</td>
-                <td>{{ worker.last_name }}</td>
-                <td>{{ worker.email }}</td>
-                <td>{{ worker.position.name|default:"Not Assigned" }}</td>
-                <td>
-                    <a href="{% url 'manager:workers-delete' worker.id %}" class="btn btn-danger btn-sm">
-                        Delete
-                    </a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6" class="text-center">No workers available.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
-</div>
-{% endblock %}
+    <main>
+
+        {% include 'includes/preloader.html' %}
+
+        <!-- Hero -->
+        <section class="section-header bg-secondary text-white">
+            <div class="container">
+               <div class="row justify-content-between align-items-center">
+                  <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                        <h1 class="display-2 mb-4">Workers Management</h1>
+                        <p class="lead mb-4 text-muted">Manage your team efficiently with our intuitive interface.</p>
+                    </div>
+                  <div class="col-12 col-md-5 d-none d-md-block text-center"><img src="{{ ASSETS_ROOT }}/img/illustrations/team-management.svg" alt=""></div>
+               </div>
+            </div>
+            <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
+               <svg class="fill-white" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4" style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                  <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+               </svg>
+            </figure>
+        </section>
+
+        <!-- Workers List Section -->
+        <section class="section section-lg pt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form method="get" action="" class="form-inline mb-4">
+                            {{ search_form|crispy }}
+                            <button type="submit" class="btn btn-secondary ms-2">Find</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold">Workers List</h2>
+                    <a href="{% url 'manager:workers-create' %}" class="btn btn-success">Add Worker</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered shadow-soft rounded">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for worker in worker_list %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'manager:workers-detail' worker.id %}" class="text-primary">
+                                        {{ worker.username }}
+                                    </a>
+                                </td>
+                                <td>{{ worker.first_name }}</td>
+                                <td>{{ worker.last_name }}</td>
+                                <td>{{ worker.email }}</td>
+                                <td>{{ worker.position.name|default:"Not Assigned" }}</td>
+                                <td>
+                                    <a href="{% url 'manager:workers-delete' worker.id %}" class="btn btn-danger btn-sm">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">No workers available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'manager:index' %}" class="btn btn-secondary mt-3">Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    {% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
