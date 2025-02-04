@@ -15,3 +15,8 @@ Why TaskFlow?
 If you’ve never used Trello or ClickUp—or you're looking for a tailored solution—TaskFlow is the perfect tool to manage your team's tasks and resolve common project development challenges effectively. Designed to address real-world IT project needs, TaskFlow keeps your team focused on delivering quality results.
 
 Let TaskFlow help your team take control of their workflow!
+
+Here you can see the structure of the project
+
+
+![Monosnap+TaskFlow+-+Your+Teams+Custom+Task+Manage](https://github.com/user-attachments/assets/d0195f30-f33a-43c7-a8ba-5e0aeb92f837)
