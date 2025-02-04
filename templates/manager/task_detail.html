@@ -43,15 +43,11 @@
                         <li class="list-group-item text-muted text-center">No assignees</li>
                     {% endfor %}
                 </ul>
-            <div class="d-flex gap-3 mt-4 justify-content-center">
-                <a href="{% url 'manager:tasks-update' task.id %}" class="btn btn-success btn-lg">Update this task</a>
-                <a href="{% url 'manager:tasks-list' %}" class="btn btn-secondary btn-lg">Back to Tasks</a>
-            </div>
             </div>
 
             <div class="d-flex gap-3 mt-4 justify-content-center">
-                <a href="{% url 'manager:tasks-update' task.id %}" class="btn btn-success btn-lg">empty</a>
-                <a href="{% url 'manager:tasks-list' %}" class="btn btn-secondary btn-lg">empty</a>
+                <a href="{% url 'manager:tasks-update' task.id %}" class="btn btn-success btn-lg">Update this task</a>
+                <a href="{% url 'manager:tasks-list' %}" class="btn btn-secondary btn-lg">Back to Tasks</a>
             </div>
         </div>
     </section>
