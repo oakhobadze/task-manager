@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Worker: {{ worker.username }} {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<main>
+    {% include 'includes/preloader.html' %}
+
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 text-center">
+                    <h1 class="display-2 mb-4">Worker: {{ worker.username }}</h1>
+                    <p class="lead mb-4 text-muted">Detailed information about the worker.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg pt-0">
+        <div class="container mt-4">
+            <h2 class="mb-3">Worker Details</h2>
+            <p><strong>First Name:</strong> {{ worker.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ worker.last_name }}</p>
+            <p><strong>Position:</strong> {{ worker.position }}</p>
+            <p><strong>Email:</strong> {{ worker.email }}</p>
+
+            <h4 class="mt-4">Assigned Tasks:</h4>
+            <ul class="list-group">
+                {% for task in worker.assigned_tasks.all %}
+                    <li class="list-group-item">
+                        <a href="{% url 'manager:tasks-detail' task.id %}" class="text-primary font-weight-bold">{{ task.name }}</a>
+                        <p class="mb-1"><em>{{ task.description }}</em></p>
+                        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+                        <p><strong>Priority:</strong> <span class="badge bg-primary">{{ task.priority }}</span></p>
+                        <p><strong>Task Type:</strong> {{ task.task_type }}</p>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-muted text-center">No tasks assigned</li>
+                {% endfor %}
+            <div class="d-flex gap-2 mt-4">
+                <a href="{% url 'manager:workers-update' worker.id %}" class="btn btn-success">Update this worker</a>
+                <a href="{% url 'manager:workers-list' %}" class="btn btn-secondary">Back to Workers</a>
+            </div>
+            </ul>
+        </div>
+    </section>
+</main>
+
+{% include 'includes/footer.html' %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
