@@ -52,6 +52,18 @@
     }
   },
   {
+    "model": "manager.worker",
+    "pk": 8,
+    "fields": {
+        "username": "test",
+        "position": 1,
+        "email": "test@test.com",
+        "password": "test12345678",
+        "first_name": "TEST",
+        "last_name": "TEST"
+    }
+  },
+  {
     "model": "manager.task",
     "pk": 1,
     "fields": {
