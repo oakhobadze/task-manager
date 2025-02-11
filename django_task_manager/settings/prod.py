@@ -4,7 +4,7 @@ from .base import *
 load_dotenv()
 DEBUG = os.getenv("DJANGO_DEBUG", "False") != "False"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "task-manager-qo2g.onrender.com"]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
